@@ -1,0 +1,116 @@
+[2021-11-12 00:35:02] Attempting 'Chrome' v2021.11.4181 deployment using 'NuGet packages (IronPdf.Native.Chrome.Linux(2021.11.4181)) with folder '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0''
+[2021-11-12 00:35:02] Attempting NuGet package 'IronPdf.Native.Chrome' deployment using 'IronPdf.Native.Chrome.Linux(2021.11.4181)'
+[2021-11-12 00:35:02] Downloading NuGet package from 'https://www.nuget.org/api/v2/package/IronPdf.Native.Chrome.Linux/2021.11.4181'
+[2021-11-12 00:35:42] Extracting package contents '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/IronPdf.Native.Chrome.Linux.2021.11.4181.nupkg/runtimes/linux-x64/native' to '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:45] Successfully deployed NuGet package 'IronPdf.Native.Chrome.Linux' to '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:45] Found 'IronInterop' at '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:45] Determining deployment commands for platform 'Zorin' v16.0
+[2021-11-12 00:35:45] Using deployment instructions for 'default' v1.0
+[2021-11-12 00:35:45] Executing command 'apt update' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:45] Lendo listas de pacotes...
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/apt/lists/lock - open (13: Permissão negada)
+E: Impossível criar acesso exclusivo ao directório /var/lib/apt/lists/
+W: Problema ao remover o link do ficheiro /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permissão negada)
+W: Problema ao remover o link do ficheiro /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permissão negada)
+
+[2021-11-12 00:35:45] Executing command 'apt install -y libc6-dev' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:45] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:45] Executing command 'apt install -y libgtk2.0-0' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libnss3' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libatk-bridge2.0-0' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libx11-xcb1' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libxcb-dri3-0' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libdrm-common' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libgbm1' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libasound2' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libappindicator3-1' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libxrender1' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'apt install -y libfontconfig1' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+E: Não foi possível abrir arquivo de trava /var/lib/dpkg/lock-frontend - open (13: Permissão negada)
+E: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?
+
+[2021-11-12 00:35:46] Executing command 'chmod 755 IronCefSubprocess' in '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] 
+[2021-11-12 00:35:46] Attempting to load Unix library '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native/libcef.so'
+[2021-11-12 00:35:46] Unix library '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native/libcef.so' load result 94683024497824
+[2021-11-12 00:35:46] Successfully loaded libcef from the file: /home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native/libcef.so
+[2021-11-12 00:35:46] Attempting to load Unix library '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native/IronInterop.so'
+[2021-11-12 00:35:46] Unix library '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native/IronInterop.so' load result 94683024983472
+[2021-11-12 00:35:46] Successfully loaded IronInterop from the file: /home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native/IronInterop.so
+[2021-11-12 00:35:46] Successfully loaded 'IronInterop' version '2021.11.0.4181' from '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0/runtimes/linux-x64/native'
+[2021-11-12 00:35:46] Successfully deployed 'Chrome' using 'NuGet packages (IronPdf.Native.Chrome.Linux(2021.11.4181)) with folder '/home/gustavo/Code/PDF_Table_Extrator/bin/Debug/net5.0''
+[2021-11-12 00:35:51] Loaded image with pixel type  and format 
+[2021-11-12 00:35:51] Loaded image with pixel type  and format 
+[2021-11-12 00:39:57] Loaded image with pixel type  and format 
+[2021-11-12 00:39:57] Loaded image with pixel type  and format 

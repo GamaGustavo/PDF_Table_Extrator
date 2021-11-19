@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspose.PDF" Version="21.10.1" />
     <PackageReference Include="itext7" Version="7.2.0" />
   </ItemGroup>
 

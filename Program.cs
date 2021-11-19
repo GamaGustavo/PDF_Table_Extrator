@@ -11,8 +11,10 @@ namespace PDF_Table_Extrator
     {
         public static void Main(string[] args)
         {
+            /// Exibe os dados extraidos do pdf.
             Console.WriteLine(ExtarctTable(ExtarctPdf("Nome do Documento")));
             //  Console.WriteLine(ExtarctPdf("historico_2019000813.pdf"));
+            ///Exibe os dados salvos na lista de CompCurri(Componente curricular).
             PrintTable(ExtarctTable(ExtarctPdf("Nome do documento")));
         }
 
