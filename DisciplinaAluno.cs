@@ -7,10 +7,10 @@ namespace PDF_Table_Extrator
     {
         public string AnoLetivo { get; protected set; }
         public string ComponenteCurricular { get; protected set; }
-        public int QuantAulas { get; protected set; }
+        public int QuantidadeAulas { get; protected set; }
         public float CH { get; protected set; }
         public string Turma { get; protected set; }
-        public float FrequenciaPorcen { get; protected set; }
+        public float Frequencia { get; protected set; }
         public float Nota { get; protected set; }
         public string Status { get; protected set; }
         public DisciplinaAluno() { }
@@ -38,10 +38,10 @@ namespace PDF_Table_Extrator
             {
                 AnoLetivo = entradas[0],
                 ComponenteCurricular = componenteC,
-                QuantAulas = int.Parse(entradas[posicao]),
+                QuantidadeAulas = int.Parse(entradas[posicao]),
                 CH = float.Parse(entradas[++posicao].Replace(",", ".")),
                 Turma = entradas[++posicao],
-                FrequenciaPorcen = float.Parse(entradas[++posicao].Replace("--", "0")),
+                Frequencia = float.Parse(entradas[++posicao].Replace("--", "0")),
                 Nota = float.Parse(entradas[++posicao].Replace("---", "0")),
                 Status = entradas[++posicao]
             };
@@ -72,10 +72,10 @@ namespace PDF_Table_Extrator
             {
                 AnoLetivo = entradas[0],
                 ComponenteCurricular = componenteC,
-                QuantAulas = int.Parse(entradas[posicao]),
+                QuantidadeAulas = int.Parse(entradas[posicao]),
                 CH = float.Parse(entradas[++posicao].Replace(",", ".")),
                 Turma = entradas[++posicao],
-                FrequenciaPorcen = float.Parse(entradas[++posicao].Replace("--", "0")),
+                Frequencia = float.Parse(entradas[++posicao].Replace("--", "0")),
                 Nota = float.Parse(entradas[++posicao].Replace("---", "0"))
             };
 
@@ -115,10 +115,10 @@ namespace PDF_Table_Extrator
             {
                 AnoLetivo = entradas[0],
                 ComponenteCurricular = componenteC,
-                QuantAulas = int.Parse(entradas[posicao]),
+                QuantidadeAulas = int.Parse(entradas[posicao]),
                 CH = float.Parse(entradaBugada1, CultureInfo.InvariantCulture),
                 Turma = entradas[++posicao],
-                FrequenciaPorcen = float.Parse(entradas[++posicao].Replace("--", "0")),
+                Frequencia = float.Parse(entradas[++posicao].Replace("--", "0")),
                 Nota = float.Parse(entradas[++posicao].Replace("--", "0")),
                 Status = entradas[++posicao]
             };
@@ -134,12 +134,12 @@ namespace PDF_Table_Extrator
             Status = Status.PadRight(60, ' ');
 
 
-            string temp = (FrequenciaPorcen / 10).ToString();
-            if (FrequenciaPorcen / 10 < 100)
+            string temp = (Frequencia / 10).ToString();
+            if (Frequencia / 10 < 100)
             {
 
                 temp = " " + temp;
-                if (FrequenciaPorcen / 10 < 10)
+                if (Frequencia / 10 < 10)
                 {
                     temp = " " + temp;
                 }
@@ -155,7 +155,7 @@ namespace PDF_Table_Extrator
                 " | ",
                 AnoLetivo,
                 ComponenteCurricular,
-                (QuantAulas > 100 ? QuantAulas : " " + QuantAulas),
+                (QuantidadeAulas > 100 ? QuantidadeAulas : " " + QuantidadeAulas),
                 (CH / 100 > 100 ? CH / 100 : " " + CH / 100),
                 Turma,
                 temp + "%",

@@ -19,28 +19,31 @@ namespace PDF_Table_Extrator
         public static HistoricoAluno Parse(string fullFileName)
         {
             var historicoAluno = new HistoricoAluno();
-            
-            string historico = Utils.ConvertPdfToText(fullFileName);
-            var fileInfo = new FileInfo(fullFileName);
-            var tabelaHistorico = HistoricoAluno.ExtrairTabelaHistorico(historico);
-            string[] linhasBaguncadas = tabelaHistorico.Split("\n");
 
-            var listaDisciplinas = new List<DisciplinaAluno>(linhasBaguncadas.Length - 1);
-            for (int i = 0; i < linhasBaguncadas.Length - 1; i++)
+            string historicoEmTXT = Utils.ConvertPdfToText(fullFileName);
+            var fileInfo = new FileInfo(fullFileName);
+            var tabelaHistorico = HistoricoAluno.ExtrairTabelaHistorico(historicoEmTXT);
+
+            string[] linhaTabelaHistorico = tabelaHistorico.Split("\n");
+
+            var listaDisciplinas = new List<DisciplinaAluno>(linhaTabelaHistorico.Length - 1);
+            for (int i = 0; i < linhaTabelaHistorico.Length - 1; i++)
             {
-                if (linhasBaguncadas[i].Equals("REPROVADO") || linhasBaguncadas[i].Equals("APROVADO POR"))
+                if (linhaTabelaHistorico[i].Equals("REPROVADO", StringComparison.InvariantCultureIgnoreCase) ||
+                    linhaTabelaHistorico[i].Equals("APROVADO POR", StringComparison.InvariantCultureIgnoreCase)
+                )
                 {
-                    listaDisciplinas.Add(DisciplinaAluno.Parse(linhasBaguncadas[i], linhasBaguncadas[i + 1], linhasBaguncadas[i + 2]));
+                    listaDisciplinas.Add(DisciplinaAluno.Parse(linhaTabelaHistorico[i], linhaTabelaHistorico[i + 1], linhaTabelaHistorico[i + 2]));
                     i += 2;
                 }
                 else
                 {
-                    string temp = linhasBaguncadas[i].Replace(",", ".");
+                    string temp = linhaTabelaHistorico[i].Replace(",", ".");
                     float ch = 0;
-                    bool deu = float.TryParse(temp, out ch);
-                    if (deu)
+
+                    if (float.TryParse(temp, out ch))
                     {
-                        listaDisciplinas.Add(DisciplinaAluno.Parse(linhasBaguncadas[i], linhasBaguncadas[++i]));
+                        listaDisciplinas.Add(DisciplinaAluno.Parse(linhaTabelaHistorico[i], linhaTabelaHistorico[++i]));
                     }
                     else
                     {
