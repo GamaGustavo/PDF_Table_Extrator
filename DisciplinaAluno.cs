@@ -1,18 +1,26 @@
-﻿using System.Globalization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 
 namespace PDF_Table_Extrator
 {
     public class DisciplinaAluno
     {
+        public int Id { get; set; }
+        //[MaxLength(10), StringLength(10)]
         public string AnoLetivo { get; protected set; }
         public string ComponenteCurricular { get; protected set; }
+        
         public int QuantidadeAulas { get; protected set; }
         public float CH { get; protected set; }
         public string Turma { get; protected set; }
         public float Frequencia { get; protected set; }
-        public float Nota { get; protected set; }
+        public float Nota { get; set; }
         public string Status { get; protected set; }
+
+        public int HistoricoAlunoId { get; set; }
+        public HistoricoAluno HistoricoAluno { get; set; }
+
         public DisciplinaAluno() { }
         public static DisciplinaAluno Parse(string entrada)
         {
