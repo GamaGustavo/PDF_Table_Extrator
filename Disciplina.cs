@@ -1,9 +1,13 @@
 using System;
 using System.Globalization;
+using System.ComponentModel.DataAnnotations;
 
 namespace historico{
-    class Disciplina{
+    public class Disciplina{
+        
+        [Key]
         public string AnoLetivo {get;set;}
+        [Key]
         public string Codigo { get; set; }
         public string Nome { get; set; }
         public int QuantAulas { get; set; }
