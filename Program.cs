@@ -12,53 +12,52 @@ namespace PDF_Table_Extrator
         public static void Main(string[] args)
         {
             /// Exibe os dados extraidos do pdf.
-            // Console.WriteLine(ExtarctTable(ExtarctPdf("Sem título 1.pdf")));
+            Console.WriteLine(ExtarctTable(ExtarctPdf("Sem título 1.pdf")));
+            //  Console.WriteLine(ExtarctPdf("historico_2019000813.pdf"));
             ///Exibe os dados salvos na lista de CompCurri(Componente curricular).
             // PrintTable(ExtarctTable(ExtarctPdf("Nome do documento")));
         }
 
-        
+        public static string ExtarctPdf(string nome){
+            string resultado = "";
 
-        
-        
-         public static void PrintTable(string talelaBaguncada)
-        {   
-            string [] linhasBaguncadas = talelaBaguncada.Split("\n");
-            
-            CompCurri [] lista = new CompCurri [linhasBaguncadas.Length-1];
-            int a =0;
-            for(int i = 0 ; i< linhasBaguncadas.Length-1; i++)
+            PdfReader leitorDePdf = new PdfReader(nome);
+            PdfDocument pdfDoc = new PdfDocument(leitorDePdf);
+            for(int page = 1; page <= pdfDoc.GetNumberOfPages(); page++)
             {
-                if (linhasBaguncadas[i].Equals("REPROVADO") ||linhasBaguncadas[i].Equals("APROVADO POR"))
-                {
-                    lista[a++]=  new CompCurri(linhasBaguncadas[i],linhasBaguncadas[i+1],linhasBaguncadas[i+2]);
-                    i+=2;
-                }else
-                {   string temp = linhasBaguncadas[i].Replace(",",".");
-                    float ch;
-                    bool deu = float.TryParse(temp,out ch);
-                    if (deu)
+                ITextExtractionStrategy strategy = new LocationTextExtractionStrategy();
+                resultado += PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(page), strategy);
+            }
+            pdfDoc.Close();
+            leitorDePdf.Close();
+            return resultado;
+        }
+
+        public static string ExtarctTable(string pdfExtarido){
+            string resultado = null;
+             bool vai = false;
+            string [] pdfExtaridoVector = pdfExtarido.Split("\n");
+            foreach(string linha in pdfExtaridoVector){
+                if(linha.Equals("Para verificar a autenticidade deste documento entre em  https://sig.ifs.edu.br/sigaa/documentos informando a matrícula, data de")){
+                    vai = false;
+                }
+                if(linha.Equals("Legenda")){
+                    vai = false;
+                }
+                if(vai){
+                    if(!linha.Equals("Letivo"))
                     {
-                      lista[a++]=  new CompCurri(linhasBaguncadas[i],linhasBaguncadas[++i]);  
-                    }else
-                    {
-                       lista[a++]=  new CompCurri(temp);  
+                        resultado+= linha+"\n";
                     }
                 }
-            } 
-            foreach (var item in lista)
-            {
-                if(item == null)
-                    break;
-                string linha= null, temp = item.ToString();
-                for (int i = 0; i < temp.Length; i++)
-                {
-                    linha +="-";
+                if(linha.Equals("Componente Curricular Quant. Aulas CH Turma Freq % Nota Situação")){
+                    vai = true;
                 }
-               Console.WriteLine(linha+"\n"+temp);
+                
             }
-            Console.WriteLine("---------------------------------------------------------------------------------------------------------------------------------------------------");
+            return resultado;
         }
+        
     }
 
     public class CompCurri{

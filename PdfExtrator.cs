@@ -29,7 +29,7 @@ namespace pdfExtrator{
             string pdfExtarido =  PdfExtratorGeneric(historicoPdf);
             Aluno aluno = ExtarctDadosAluno(pdfExtarido);
             ArrayList disciplinas = ExtarctDisciplinas(pdfExtarido);
-            return new Historico();
+            return new Historico(aluno: aluno,disciplinas: disciplinas);
         }
         
         public static string ExtarctTableCompCurri(string pdfExtarido){
@@ -62,7 +62,39 @@ namespace pdfExtrator{
             return new Aluno();
         }
         public static ArrayList ExtarctDisciplinas(string pdfExtarido){
-            return new ArrayList();
+            string extractTable = ExtarctTableCompCurri(pdfExtarido);
+            string [] vetorDeLinhas = extractTable.Split("\n");
+            var disciplinas = new ArrayList();
+            int countLine =0; 
+            while (countLine <= vetorDeLinhas.Length)
+            {
+                 if ("REPROVADO".Equals(vetorDeLinhas[countLine])||"APROVADOR POR".Equals(vetorDeLinhas[countLine]))
+                 {
+                    disciplinas.Add(new Disciplina(vetorDeLinhas[countLine],vetorDeLinhas[countLine+1],vetorDeLinhas[countLine+2]));
+                     
+                    countLine +=3;
+                 }else
+                 {
+                     if ("120,00 REPROVADO".Equals(vetorDeLinhas[countLine]))
+                     {
+                          disciplinas.Add(new Disciplina(120.00f,"REPROVADO",vetorDeLinhas[countLine+1],vetorDeLinhas[countLine+2]));
+                          countLine +=3;
+                     }else
+                     {
+                         if ("120,00".Equals(vetorDeLinhas[countLine]))
+                         {
+                             disciplinas.Add(new Disciplina(120.00f,vetorDeLinhas[countLine+1]));
+                             countLine +=2;
+                         }else
+                         {
+                             disciplinas.Add(new Disciplina(vetorDeLinhas[countLine]));
+                             countLine ++;
+                         }
+                     }
+                 }
+            }
+            return disciplinas;
         }
+           
     }
 }
