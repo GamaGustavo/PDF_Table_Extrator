@@ -8,9 +8,8 @@ using iText.Kernel.Pdf.Canvas.Parser.Listener;
 using historico;
 
 namespace pdfExtrator{
-    public class pdfExtartor{
-        
-        
+    public class PdfExtartor{
+    
         public static string PdfExtratorGeneric(FileStream historicoPdf){
             PdfReader reader = new PdfReader(historicoPdf);
             PdfDocument pdfDoc = new PdfDocument(reader);
@@ -25,7 +24,7 @@ namespace pdfExtrator{
             return resultado;
         }
 
-        public Historico ModelHistoricoIFS(FileStream historicoPdf){
+        public static Historico ModelHistoricoIFS(FileStream historicoPdf){
             string pdfExtarido =  PdfExtratorGeneric(historicoPdf);
             Aluno aluno = ExtarctDadosAluno(pdfExtarido);
             ArrayList disciplinas = ExtarctDisciplinas(pdfExtarido);
@@ -66,9 +65,9 @@ namespace pdfExtrator{
             string [] vetorDeLinhas = extractTable.Split("\n");
             var disciplinas = new ArrayList();
             int countLine =0; 
-            while (countLine <= vetorDeLinhas.Length)
+            while (countLine < vetorDeLinhas.Length-1)
             {
-                 if ("REPROVADO".Equals(vetorDeLinhas[countLine])||"APROVADOR POR".Equals(vetorDeLinhas[countLine]))
+                 if ("REPROVADO".Equals(vetorDeLinhas[countLine])||"APROVADO POR".Equals(vetorDeLinhas[countLine]))
                  {
                     disciplinas.Add(new Disciplina(vetorDeLinhas[countLine],vetorDeLinhas[countLine+1],vetorDeLinhas[countLine+2]));
                      
