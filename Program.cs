@@ -12,51 +12,14 @@ namespace PDF_Table_Extrator
         public static void Main(string[] args)
         {
             /// Exibe os dados extraidos do pdf.
-            Console.WriteLine(ExtarctTable(ExtarctPdf("Nome do Documento")));
-            //  Console.WriteLine(ExtarctPdf("historico_2019000813.pdf"));
+            // Console.WriteLine(ExtarctTable(ExtarctPdf("Sem título 1.pdf")));
             ///Exibe os dados salvos na lista de CompCurri(Componente curricular).
-            PrintTable(ExtarctTable(ExtarctPdf("Nome do documento")));
+            // PrintTable(ExtarctTable(ExtarctPdf("Nome do documento")));
         }
 
-        public static string ExtarctPdf(string nome){
-            string resultado = "";
+        
 
-            PdfReader leitorDePdf = new PdfReader(nome);
-            PdfDocument pdfDoc = new PdfDocument(leitorDePdf);
-            for(int page = 1; page <= pdfDoc.GetNumberOfPages(); page++)
-            {
-                ITextExtractionStrategy strategy = new LocationTextExtractionStrategy();
-                resultado += PdfTextExtractor.GetTextFromPage(pdfDoc.GetPage(page), strategy);
-            }
-            pdfDoc.Close();
-            leitorDePdf.Close();
-            return resultado;
-        }
-
-        public static string ExtarctTable(string pdfExtarido){
-            string resultado = null;
-             bool vai = false;
-            string [] pdfExtaridoVector = pdfExtarido.Split("\n");
-            foreach(string linha in pdfExtaridoVector){
-                if(linha.Equals("Para verificar a autenticidade deste documento entre em  https://sig.ifs.edu.br/sigaa/documentos informando a matrícula, data de")){
-                    vai = false;
-                }
-                if(linha.Equals("Legenda")){
-                    vai = false;
-                }
-                if(vai){
-                    if(!linha.Equals("Letivo"))
-                    {
-                        resultado+= linha+"\n";
-                    }
-                }
-                if(linha.Equals("Componente Curricular Quant. Aulas CH Turma Freq % Nota Situação")){
-                    vai = true;
-                }
-                
-            }
-            return resultado;
-        }
+        
         
          public static void PrintTable(string talelaBaguncada)
         {   
