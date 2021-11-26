@@ -28,7 +28,11 @@ namespace pdfExtrator{
             string pdfExtarido =  PdfExtratorGeneric(historicoPdf);
             Aluno aluno = ExtarctDadosAluno(pdfExtarido);
             List<Disciplina> disciplinas = ExtarctDisciplinas(pdfExtarido);
-            return new Historico(aluno: aluno,disciplinas: disciplinas);
+            string [] pdfExtaridoVector = pdfExtarido.Split("\n");
+            string dataCriacao = pdfExtaridoVector[3].Replace("Histórico Escolar - Emitido em: ","");
+            Historico his = new Historico(aluno: aluno,disciplinas: disciplinas);
+            his.DataArquivo = DateTime.Parse(dataCriacao);
+            return his;
         }
         
         public static string ExtarctTableCompCurri(string pdfExtarido){
@@ -58,7 +62,24 @@ namespace pdfExtrator{
         }
         
         public static Aluno ExtarctDadosAluno(string pdfExtarido){
-            return new Aluno();
+            Aluno aluno = new Aluno();
+            string [] pdfExtaridoVector = pdfExtarido.Split("\n");
+            foreach(string linha in pdfExtaridoVector){
+                if (linha.Contains("Nome:"))
+                {
+                   aluno.Nome = linha.Replace("Nome:",""); 
+                }
+                if (linha.Contains("Matrícula:"))
+                {
+                   aluno.Matricula = linha.Replace("Matrícula:",""); 
+                }
+                if (aluno.isFullyFull())
+                {
+                    return aluno;
+                }
+                
+            }
+            throw new Exception(message: "os dados do aluno não foram encontrados!");
         }
         public static List<Disciplina> ExtarctDisciplinas(string pdfExtarido){
             string extractTable = ExtarctTableCompCurri(pdfExtarido);
