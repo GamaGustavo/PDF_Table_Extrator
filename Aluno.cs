@@ -12,6 +12,7 @@ namespace historico{
             this.Nome = nome;
             this.Matricula = matricula;
         }
+        public int HistoricoId { get; set; }
 
         public bool isPartialEmpty(){
             bool nomeIsEmpty = (Nome == null || "".Equals(Nome));

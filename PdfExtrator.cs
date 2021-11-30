@@ -29,7 +29,7 @@ namespace pdfExtrator{
             Aluno aluno = ExtarctDadosAluno(pdfExtarido);
             List<Disciplina> disciplinas = ExtarctDisciplinas(pdfExtarido);
             string [] pdfExtaridoVector = pdfExtarido.Split("\n");
-            string dataCriacao = pdfExtaridoVector[3].Replace("Histórico Escolar - Emitido em: ","");
+            string dataCriacao = pdfExtaridoVector[4].Replace("Histórico Escolar - Emitido em: ","").Replace("às","");
             Historico his = new Historico(aluno: aluno,disciplinas: disciplinas);
             his.DataArquivo = DateTime.Parse(dataCriacao);
             return his;

@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 namespace historico{
     public class Disciplina{
         
-        [Key]
+       public int Id { get; set; }
         public string AnoLetivo {get;set;}
-        [Key]
+        
         public string Codigo { get; set; }
         public string Nome { get; set; }
         public int QuantAulas { get; set; }
@@ -16,6 +16,7 @@ namespace historico{
         public float FrequenciaPorcen { get; set; }
         public float Nota { get; set; }
         public string Status { get; set; }
+        public int HistoricoId { get; set; }
 
         
         public Disciplina(){
