@@ -5,31 +5,80 @@ using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
 
+using Microsoft.Extensions.Configuration;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Configuration;
+using System.Threading.Tasks;
+using System.Threading;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using EntityFramework.Exceptions.Common;
+using EntityFramework.Exceptions.SqlServer;
 
 namespace PDF_Table_Extrator
 {
     public class Program
     {
+
+        // public IConfiguration Configuration { get; }
+
         public static void Main(string[] args)
         {
 
-            var arquivos = Directory.GetFiles(Path.Combine(Environment.CurrentDirectory, "Data"), "*.pdf");
-            foreach (var file in arquivos)
+            using var host = CreateHostBuilder(args).Build();
+
+            var programa = host.Services.GetRequiredService<CarregarHistoricoServices>();
+            try
             {
-                var historico = HistoricoAluno.Parse(file);
-                PrintTableAluno(historico);
-
+                var exemplo = programa.CarregarArquivoExemplo();
+                PrintTableAluno(exemplo);
+                programa.GravarNoBancoDados(exemplo);
+                var notas = programa.ObterNotasAcimaDe(95, exemplo.AlunoId);
+                Console.WriteLine("Success");
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error Occured: {ex}");
+            }
+            host.Run();
+        }
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
+                {
+                    var configuration = hostContext.Configuration;
+                    var provider = configuration.GetValue("Provider", "SqlServer");
 
-            var arquivo = Path.Combine(Environment.CurrentDirectory, "Data",
-                "historico_2019000813_gustavo.pdf");
-            
-            ///Exibe os dados salvos na lista de CompCurri(Componente curricular).
-            //GravarNoBancoDados(historico);
+                    services.AddScoped<CarregarHistoricoServices>();
+                    services.AddTransient<Program>();
 
 
+
+                    //options.UseSqlServer(hostContext.Configuration.GetConnectionString("DefaultConnection"))
+                    //options.UseInMemoryDatabase(databaseName: "HistoricoAluno"));
+
+
+                    services.AddDbContext<HistoricoDBContext>(
+                        //https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/providers?tabs=dotnet-core-cli
+                        options => _ = provider switch
+                        {
+                            "SqlServer" => options.UseSqlServer(
+                                configuration.GetConnectionString("DefaultConnection")).UseExceptionProcessor(),
+                            _ => options.UseInMemoryDatabase(databaseName: "HistoricoAluno")
+                        });
+
+                }).UseConsoleLifetime();
+        }
+
+        public Program()
+        {
 
         }
+
+
 
         private static void PrintTableAluno(HistoricoAluno historico)
         {
@@ -37,49 +86,16 @@ namespace PDF_Table_Extrator
             PrintTableDisciplinas(historico.Disciplinas.ToArray());
         }
 
-        private static void AtualizarNotasDe(int notaAtual, int novaNota)
+
+
+        private static void ExibirNotasAcimaDe(IEnumerable<DisciplinaAluno> disciplinasDoAluno)
         {
-            using (var db = new HistoricoDB())
-            {
-                var consulta = db.DisciplinasDosAlunos.Where(
-                    d => d.HistoricoAlunoId == 1 &&
-                    d.Nota >= notaAtual
-                );
-                var dados = consulta.ToList();
-                dados.ForEach(d => d.Nota = novaNota);
-                db.SaveChanges(true);
+            Console.WriteLine($"A quantidade encontrada foi de {disciplinasDoAluno.Count()}");
+            PrintTableDisciplinas(disciplinasDoAluno.ToArray());
 
-            }
-        }
-
-
-        private static void ExibirNotasAcimaDe(int nota)
-        {
-            using (var db = new HistoricoDB())
-            {
-                var consulta = db.DisciplinasDosAlunos.Where(
-                    d => d.HistoricoAlunoId == 1 &&
-                    d.Nota >= nota
-                );
-                Console.WriteLine($"A quantidade encontrada foi de {consulta.Count()}");
-                var resultado = consulta.ToArray();
-                //PrintTable(resultado);
-
-            }
 
         }
 
-        private static void GravarNoBancoDados(HistoricoAluno historico)
-        {
-            int qtd = 0;
-            using (var bd = new HistoricoDB())
-            {
-                bd.HistoricoDeAlunos.Add(historico);
-                historico.Disciplinas.ForEach(d => bd.DisciplinasDosAlunos.Add(d));
-                qtd = bd.SaveChanges();
-            }
-            Console.WriteLine($"Incluídas {qtd} disciplinas.");
-        }
 
         public static void PrintTableDisciplinas(params DisciplinaAluno[] disciplinasAluno)
         {
@@ -99,5 +115,7 @@ namespace PDF_Table_Extrator
             }
             Console.WriteLine("-".PadLeft(150, '-'));
         }
+
+
     }
 }

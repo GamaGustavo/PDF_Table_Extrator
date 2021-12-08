@@ -9,7 +9,7 @@ using PDF_Table_Extrator;
 
 namespace PDF_Table_Extrator.Migrations
 {
-    [DbContext(typeof(HistoricoDB))]
+    [DbContext(typeof(HistoricoDBContext))]
     [Migration("20211122233647_TabelasIniciais")]
     partial class TabelasIniciais
     {

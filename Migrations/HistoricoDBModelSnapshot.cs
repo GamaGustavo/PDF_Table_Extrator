@@ -8,7 +8,7 @@ using PDF_Table_Extrator;
 
 namespace PDF_Table_Extrator.Migrations
 {
-    [DbContext(typeof(HistoricoDB))]
+    [DbContext(typeof(HistoricoDBContext))]
     partial class HistoricoDBModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -18,6 +18,26 @@ namespace PDF_Table_Extrator.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("PDF_Table_Extrator.Aluno", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Matricula")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Aluno");
+                });
 
             modelBuilder.Entity("PDF_Table_Extrator.DisciplinaAluno", b =>
                 {
@@ -32,7 +52,7 @@ namespace PDF_Table_Extrator.Migrations
                     b.Property<float>("CH")
                         .HasColumnType("real");
 
-                    b.Property<string>("ComponenteCurricular")
+                    b.Property<string>("Codigo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Frequencia")
@@ -40,6 +60,9 @@ namespace PDF_Table_Extrator.Migrations
 
                     b.Property<int>("HistoricoAlunoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Nota")
                         .HasColumnType("real");
@@ -67,6 +90,9 @@ namespace PDF_Table_Extrator.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AlunoId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataArquivo")
                         .HasColumnType("datetime2");
 
@@ -77,6 +103,8 @@ namespace PDF_Table_Extrator.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlunoId");
 
                     b.ToTable("HistoricoAluno");
                 });
@@ -90,6 +118,17 @@ namespace PDF_Table_Extrator.Migrations
                         .IsRequired();
 
                     b.Navigation("HistoricoAluno");
+                });
+
+            modelBuilder.Entity("PDF_Table_Extrator.HistoricoAluno", b =>
+                {
+                    b.HasOne("PDF_Table_Extrator.Aluno", "Aluno")
+                        .WithMany()
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Aluno");
                 });
 
             modelBuilder.Entity("PDF_Table_Extrator.HistoricoAluno", b =>
