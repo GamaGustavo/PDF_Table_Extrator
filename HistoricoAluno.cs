@@ -15,7 +15,6 @@ namespace PDF_Table_Extrator
             this.DataLeitura = DateTime.Now;
         }
         public List<DisciplinaAluno> Disciplinas { get; protected set; }
-       // [System.ComponentModel.DataAnnotations.FileExtensions(Extensions ="pdf")]
         public string FilePath { get; protected set; }
         public DateTime DataLeitura { get; protected set; }
         public DateTime DataArquivo { get; protected set; }

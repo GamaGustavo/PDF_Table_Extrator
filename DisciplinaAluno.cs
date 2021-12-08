@@ -9,7 +9,8 @@ namespace PDF_Table_Extrator
         public int Id { get; set; }
         //[MaxLength(10), StringLength(10)]
         public string AnoLetivo { get; protected set; }
-        public string ComponenteCurricular { get; protected set; }
+        public string Codigo { get; protected set; }
+        public string Nome { get; protected set; }
         
         public int QuantidadeAulas { get; protected set; }
         public float CH { get; protected set; }
@@ -42,17 +43,20 @@ namespace PDF_Table_Extrator
                     componenteC += entradas[i] + " ";
                 }
             }
-            return new DisciplinaAluno()
+            var componente = componenteC.Split(" ", 2, System.StringSplitOptions.TrimEntries);
+            var d = new DisciplinaAluno()
             {
-                AnoLetivo = entradas[0],
-                ComponenteCurricular = componenteC,
+                AnoLetivo = entradas[0].Trim(),
+                Codigo = componente[0],
+                Nome = componente[1],
                 QuantidadeAulas = int.Parse(entradas[posicao]),
                 CH = float.Parse(entradas[++posicao].Replace(",", ".")),
-                Turma = entradas[++posicao],
+                Turma = entradas[++posicao].Trim(),
                 Frequencia = float.Parse(entradas[++posicao].Replace("--", "0")),
                 Nota = float.Parse(entradas[++posicao].Replace("---", "0")),
-                Status = entradas[++posicao]
+                Status = entradas[++posicao].Trim()
             };
+            return d;
         }
 
         public static DisciplinaAluno Parse(string entradaBugada1, string entradaBugada2, string entradaBugada3)
@@ -76,13 +80,16 @@ namespace PDF_Table_Extrator
                     componenteC += entradas[i] + " ";
                 }
             }
+            var componente = componenteC.Split(" ", 2, System.StringSplitOptions.TrimEntries);
+
             var disciplina = new DisciplinaAluno()
             {
-                AnoLetivo = entradas[0],
-                ComponenteCurricular = componenteC,
+                AnoLetivo = entradas[0].Trim(),
+                Codigo = componente[0],
+                Nome = componente[1],
                 QuantidadeAulas = int.Parse(entradas[posicao]),
                 CH = float.Parse(entradas[++posicao].Replace(",", ".")),
-                Turma = entradas[++posicao],
+                Turma = entradas[++posicao].Trim(),
                 Frequencia = float.Parse(entradas[++posicao].Replace("--", "0")),
                 Nota = float.Parse(entradas[++posicao].Replace("---", "0"))
             };
@@ -96,6 +103,7 @@ namespace PDF_Table_Extrator
                 disciplina.Status = entradaBugada1 + " " + entradas[++posicao] + " " + entradaBugada3;
 
             }
+            disciplina.Status = disciplina.Status.Trim();
             return disciplina;
         }
 
@@ -119,16 +127,19 @@ namespace PDF_Table_Extrator
                     componenteC += entradas[i] + " ";
                 }
             }
+            var componente = componenteC.Split(" ", 2, System.StringSplitOptions.TrimEntries);
+
             return new DisciplinaAluno
             {
-                AnoLetivo = entradas[0],
-                ComponenteCurricular = componenteC,
+                AnoLetivo = entradas[0].Trim(),
+                Codigo = componente[0],
+                Nome = componente[1],
                 QuantidadeAulas = int.Parse(entradas[posicao]),
                 CH = float.Parse(entradaBugada1, CultureInfo.InvariantCulture),
-                Turma = entradas[++posicao],
+                Turma = entradas[++posicao].Trim(),
                 Frequencia = float.Parse(entradas[++posicao].Replace("--", "0")),
                 Nota = float.Parse(entradas[++posicao].Replace("--", "0")),
-                Status = entradas[++posicao]
+                Status = entradas[++posicao].Trim()
             };
 
         }
@@ -137,9 +148,8 @@ namespace PDF_Table_Extrator
         public override string ToString()
         {
 
-            int comprimento = 60 - ComponenteCurricular.Length;
-            ComponenteCurricular = ComponenteCurricular.PadRight(60, ' ');
-            Status = Status.PadRight(60, ' ');
+            var componenteCurricular = Nome.PadRight(60, ' ');
+            var status = Status.PadRight(60, ' ');
 
 
             string temp = (Frequencia / 10).ToString();
@@ -162,13 +172,13 @@ namespace PDF_Table_Extrator
             return string.Join(" | ",
                 " | ",
                 AnoLetivo,
-                ComponenteCurricular,
+                componenteCurricular,
                 (QuantidadeAulas > 100 ? QuantidadeAulas : " " + QuantidadeAulas),
                 (CH / 100 > 100 ? CH / 100 : " " + CH / 100),
                 Turma,
                 temp + "%",
                 temp2,
-                Status,
+                status,
                 "|"
             );
         }
